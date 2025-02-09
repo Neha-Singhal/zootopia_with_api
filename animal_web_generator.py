@@ -1,26 +1,27 @@
-from data_fetcher import fetch_animal_data
-
-def  generate_website(animal_name, data):
+import data_fetcher
+def  generate_website(animal_name):
     """Generate an HTML page with the animal's data."""
-    filename = "animals.html"
+    # Fetch data using the data fetcher
+    data = data_fetcher.fetch_data(animal_name)
+    if not data:
+        print(f"No data found for {animal_name}.")
+        return
 
-    with open(filename ,"w") as file:
-            file.write("<html><head><title>Animal Info</title></head><body>")
-            file.write(f"<h1> search Results for: {animal_name}</h1>")
-
-            if data and "animals" in data and data["animals"]:
-                for animal in data["animals"]:  # Adjust based on API response structure
-                    file.write(f"<h2>{animal['name']}</h2>")
-                    file.write(f"<p>{animal.get('characteristics', 'no description available')}</p>")
-            else:
-                file.write(f"<h2>The animal '{animal_name}' doesn't exist.</h2>")
-            file.write("</body></html>")
-    print(f"Website generated successfully as {filename}!")
-
-animal_name = input("Enter a name of animal:")
-data = fetch_animal_data(animal_name) #Fetch data from API
-
-generate_website(animal_name,data)  #Generate website based on API data
+    # Generate the website (replace this with your actual website generation logic)
+    print(f"Generating website for {animal_name}...")
+    for animal in data:
+        print(f"Name: {animal.get('name')}")
+        print(f"Taxonomy: {animal.get('taxonomy')}")
+        print(f"locations: {animal.get('locations')}")
+        print(f"Characteristics: {animal.get('characteristics')}")
+        print("-" * 40)
 
 
+def main():
+    # Get user input
+    animal_name = input("Please enter an animal: ")
+    generate_website(animal_name)
 
+
+if __name__ == "__main__":
+    main()
