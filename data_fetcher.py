@@ -31,7 +31,7 @@ def fetch_data(animal_name):
         #make API request
         headers = {'X-Api-key': API_KEY}
         params = {'name': animal_name}
-        response = requests.get(api_url, headers=headers, params=params)
+        response = requests.get(API_URL, headers=headers, params=params)
         response.raise_for_status() #raise an error for bad status codes
         data = response.json()
         return data
